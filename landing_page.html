@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MieMieMie - AI驱动的智能运动康复平台，提供个性化康复方案、动作评估和社区支持">
+    <title>MieMieMie | AI智能运动康复解决方案</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6BA3F0;
+            --primary-dark: #4A7BC8;
+            --primary-light: #E8F2FF;
+            --accent: #FF6B6B;
+            --success: #4CAF50;
+            --text-primary: #1A1F36;
+            --text-secondary: #6B7280;
+            --text-light: #9CA3AF;
+            --bg-white: #FFFFFF;
+            --bg-light: #F9FAFB;
+            --bg-gradient: linear-gradient(135deg, #6BA3F0 0%, #4A7BC8 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(107, 163, 240, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 18px 24px;
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--bg-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-gradient);
+            color: white;
+            text-align: center;
+            padding: 140px 20px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
+            animation: float 25s infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            bottom: -250px;
+            left: -250px;
+            animation: float 20s infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(40px, -40px) rotate(120deg); }
+            66% { transform: translate(-30px, 30px) rotate(240deg); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 72px);
+            font-weight: 700;
+            margin-bottom: 28px;
+            line-height: 1.1;
+            animation: fadeInUp 0.8s ease;
+            letter-spacing: -1px;
+        }
+
+        .hero .tagline {
+            font-size: clamp(20px, 3vw, 28px);
+            margin-bottom: 20px;
+            opacity: 0.95;
+            font-weight: 500;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero .description {
+            font-size: clamp(17px, 2.2vw, 22px);
+            margin-bottom: 48px;
+            opacity: 0.9;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.4s both;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* App Preview Section */
+        .app-preview {
+            padding: 120px 20px;
+            background: var(--bg-white);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .preview-card {
+            background: var(--bg-white);
+            border-radius: 24px;
+            padding: 0;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(107, 163, 240, 0.1);
+        }
+
+        .preview-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 500px;
+            background: var(--bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            height: 580px;
+            background: #1a1a1a;
+            border-radius: 32px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-white);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-content {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            font-size: 12px;
+        }
+
+        .phone-header {
+            background: var(--primary);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .phone-body {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .preview-card h3 {
+            font-size: 24px;
+            margin: 24px 24px 12px;
+            color: var(--text-primary);
+        }
+
+        .preview-card p {
+            color: var(--text-secondary);
+            margin: 0 24px 24px;
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 20px;
+            background: var(--bg-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(107, 163, 240, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--primary-light);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 120px 20px;
+            background: var(--bg-white);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .step-card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            position: relative;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: var(--bg-gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+
+        .step-card h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 100px 20px;
+            background: var(--bg-gradient);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 50px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .stat-item p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 20px;
+            background: var(--bg-light);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .testimonial-info h4 {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .testimonial-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .testimonial-rating {
+            margin-top: 16px;
+            color: #FFD700;
+            font-size: 20px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 20px;
+            background: var(--bg-white);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-gradient);
+            padding: 80px 60px;
+            border-radius: 32px;
+            color: white;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(36px, 5vw, 52px);
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .cta-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary);
+            padding: 20px 48px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 80px 20px 40px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .preview-grid,
+            .features-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .phone-mockup {
+                width: 240px;
+                height: 500px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">MieMieMie</div>
+            <ul class="nav-links">
+                <li><a href="#features">功能</a></li>
+                <li><a href="#how-it-works">使用流程</a></li>
+                <li><a href="#testimonials">用户评价</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AI 驱动的智能运动康复平台</h1>
+            <p class="tagline">MieMieMie - 让康复更科学、更高效</p>
+            <p class="description">
+                通过先进的 AI 技术，为运动损伤患者提供个性化评估、定制化康复计划和专业指导。
+                从损伤定位到训练方案，从进展追踪到社区支持，全方位助力您的康复之旅。
+            </p>
+            <div class="cta-buttons">
+                <a href="#features" class="btn btn-primary">探索功能</a>
+                <a href="#how-it-works" class="btn btn-secondary">了解流程</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Preview Section -->
+    <section class="app-preview">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">体验智能康复</h2>
+                <p class="section-subtitle">
+                    直观易用的界面设计，让康复管理变得简单高效
+                </p>
+            </div>
+            <div class="preview-grid">
+                <div class="preview-card fade-in">
+                    <div class="preview-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="phone-content">
+                                    <div class="phone-header">AI Assessment</div>
+                                    <div class="phone-body">
+                                        <div style="background: var(--primary); color: white; padding: 20px; border-radius: 12px; margin-bottom: 12px; text-align: center; font-weight: 600;">
+                                            Assess your injuries HERE
+                                        </div>
+                                        <div style="background: var(--primary); color: white; padding: 20px; border-radius: 12px; text-align: center; font-weight: 600;">
+                                            Assess your workout moves HERE
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>智能评估系统</h3>
+                    <p>AI 辅助的动作评估和损伤定位，精准识别问题，为康复方案提供科学依据。</p>
+                </div>
+                <div class="preview-card fade-in">
+                    <div class="preview-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="phone-content">
+                                    <div style="background: white; padding: 16px; border-radius: 12px;">
+                                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary);">Recovery Plan</div>
+                                        <div style="background: var(--bg-light); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                            <div style="font-size: 14px; font-weight: 600;">Quadriceps Stretch</div>
+                                            <div style="font-size: 12px; color: var(--text-secondary);">3 sets x 30 seconds</div>
+                                        </div>
+                                        <div style="background: var(--bg-light); padding: 12px; border-radius: 8px;">
+                                            <div style="font-size: 14px; font-weight: 600;">Step Downs</div>
+                                            <div style="font-size: 12px; color: var(--text-secondary);">3 sets x 12 reps</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>个性化康复计划</h3>
+                    <p>基于损伤类型和恢复阶段，AI 生成定制化训练方案，动态调整训练强度。</p>
+                </div>
+                <div class="preview-card fade-in">
+                    <div class="preview-image">
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="phone-content">
+                                    <div style="background: white; padding: 16px; border-radius: 12px;">
+                                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary);">Community</div>
+                                        <div style="background: var(--bg-light); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                            <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">User name</div>
+                                            <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">Day 90 recovery journey</div>
+                                            <div style="display: flex; gap: 8px;">
+                                                <span style="background: var(--primary-light); color: var(--primary); padding: 4px 8px; border-radius: 12px; font-size: 10px;">#Recovery</span>
+                                                <span style="background: var(--primary-light); color: var(--primary); padding: 4px 8px; border-radius: 12px; font-size: 10px;">#ACL</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>康复社区</h3>
+                    <p>连接康复伙伴，分享经验心得，互相鼓励支持，让康复之路不再孤单。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">核心功能</h2>
+                <p class="section-subtitle">
+                    全方位支持您的康复之旅，从评估到恢复，一站式解决方案
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI 动作评估</h3>
+                    <p>通过计算机视觉技术分析运动动作，识别潜在风险，预防二次损伤。支持多种运动类型，包括力量训练、球类运动、瑜伽等。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🩹</div>
+                    <h3>精准损伤评估</h3>
+                    <p>3D 人体模型交互式疼痛定位，记录疼痛等级和类型，建立完整的康复档案。支持 Hawkins-Kennedy 等专业测试。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📈</div>
+                    <h3>个性化康复计划</h3>
+                    <p>基于损伤类型和恢复阶段，AI 生成定制化训练方案，动态调整训练强度。包含详细的训练指导和进度追踪。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📊</div>
+                    <h3>进展可视化</h3>
+                    <p>多维度数据追踪，直观展示康复进展。疼痛等级趋势、功能恢复百分比、训练完成度等一目了然。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">👥</div>
+                    <h3>康复社区</h3>
+                    <p>连接康复伙伴，分享经验心得，互相鼓励支持。发布康复日记，参与话题讨论，让康复之路不再孤单。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💬</div>
+                    <h3>AI 智能助手</h3>
+                    <p>24/7 在线 AI 助手，提供实时康复建议，解答疑问，指导训练。基于您的具体情况，提供专业、个性化的建议。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">使用流程</h2>
+                <p class="section-subtitle">
+                    简单四步，开启您的智能康复之旅
+                </p>
+            </div>
+            <div class="steps">
+                <div class="step-card fade-in">
+                    <div class="step-number">1</div>
+                    <h3>选择评估类型</h3>
+                    <p>选择"评估动作"或"评估损伤"，根据您的需求进行相应的评估。</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">2</div>
+                    <h3>完成 AI 评估</h3>
+                    <p>按照指引完成动作测试或损伤定位，AI 系统将分析您的具体情况。</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">3</div>
+                    <h3>获取康复方案</h3>
+                    <p>系统基于评估结果，为您生成个性化的康复训练计划。</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">4</div>
+                    <h3>追踪康复进展</h3>
+                    <p>每日完成训练，记录进展，系统持续优化您的康复方案。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <h3>10K+</h3>
+                    <p>活跃用户</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>50K+</h3>
+                    <p>康复计划</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>95%</h3>
+                    <p>用户满意度</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>24/7</h3>
+                    <p>AI 智能支持</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">用户评价</h2>
+                <p class="section-subtitle">
+                    听听康复伙伴们怎么说
+                </p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👤</div>
+                        <div class="testimonial-info">
+                            <h4>Janja G.</h4>
+                            <p>Premium Member</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        "MieMieMie 的 AI 评估非常准确，帮我识别了肩部问题。康复计划很科学，每天的训练都有明确指导。现在已经恢复到 85% 了！"
+                    </div>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👤</div>
+                        <div class="testimonial-info">
+                            <h4>Alex M.</h4>
+                            <p>ACL Recovery</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        "社区功能很棒，看到其他人的康复进展给了我很大动力。AI 助手回答很专业，比我自己查资料方便多了。"
+                    </div>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👤</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah L.</h4>
+                            <p>Knee Injury</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        "进展追踪功能让我清楚地看到自己的恢复情况。疼痛等级从 7/10 降到 2/10，功能恢复也达到了 76%。非常满意！"
+                    </div>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>开始您的康复之旅</h2>
+                <p>
+                    加入 MieMieMie，体验 AI 驱动的智能康复。
+                    让科技成为您健康路上的最佳伙伴，让每一次训练都更有针对性。
+                </p>
+                <a href="#" class="cta-button" onclick="alert('即将上线，敬请期待！'); return false;">
+                    立即体验
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>MieMieMie</h3>
+                <p style="margin-top: 16px; opacity: 0.8; line-height: 1.8;">
+                    AI 驱动的智能运动康复平台，让康复更科学、更高效。
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>产品</h3>
+                <ul>
+                    <li><a href="#features">功能特性</a></li>
+                    <li><a href="#how-it-works">使用流程</a></li>
+                    <li><a href="#testimonials">用户评价</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>支持</h3>
+                <ul>
+                    <li><a href="#">帮助中心</a></li>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>关于</h3>
+                <ul>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">服务条款</a></li>
+                    <li><a href="#">医疗免责声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 MieMieMie. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.12)';
+            } else {
+                navbar.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>
